@@ -43,5 +43,3 @@ $ npm run start
 ## Testing the app
 
 Use Postman collection located in the root of src folder
-
-```
