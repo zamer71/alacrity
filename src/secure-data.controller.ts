@@ -4,7 +4,7 @@ import { EncryptInput } from './stored-data.entity';
 
 @Controller('secure-data')
 export class SecureDataController {
-  constructor(private readonly secureDataService: SecureDataService) {}
+  constructor(private readonly secureDataService: SecureDataService) { }
 
   @Post()
   async storeData(@Body() body: EncryptInput): Promise<{ message: string }> {
@@ -15,7 +15,7 @@ export class SecureDataController {
   @Get()
   async retrieveData(
     @Query('id') id: string,
-    @Query('decryption_key') decryptionKey: string,
+    @Query('decryptionKey') decryptionKey: string,
   ): Promise<any[]> {
     return await this.secureDataService.retrieveData(id, decryptionKey);
   }
