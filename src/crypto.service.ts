@@ -30,6 +30,7 @@ export class CryptoService {
       decryptedValue += decipher.final('utf-8');
       return decryptedValue;
     } catch (error) {
+      // In real application this should be logged to some kind of logging system
       console.log(error);
       return null;
     }

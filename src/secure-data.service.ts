@@ -8,10 +8,9 @@ export class SecureDataService {
   constructor(
     private readonly storeRepository: StoreRepository,
     private readonly cryptoService: CryptoService,
-  ) { }
+  ) {}
 
   async storeData({ id, encriptionKey, value }: EncryptInput): Promise<void> {
-    console.log('Storing data', { id, encriptionKey, value });
     const encryptedValue = this.cryptoService.encrypt(value, encriptionKey);
     this.storeRepository.store(id, encryptedValue);
   }
@@ -27,12 +26,26 @@ export class SecureDataService {
       );
       if (!decryptedValue) {
         // In real application this should be logged to some kind of logging system
-        console.log('Decryption failed.', { id, decryptionKey });
+        console.log('Decryption failed. Key is wrong', { id, decryptionKey });
+        return results;
       } else {
-        results.push(JSON.parse(decryptedValue));
+        const value = this.parseDecryptedValue(decryptedValue);
+        if (!value) {
+          console.log('Decryption failed. Key is wrong', { id, decryptionKey });
+          return results;
+        }
+        results.push({ id: item.id, value });
       }
     });
 
     return results;
+  }
+
+  private parseDecryptedValue(value: string): string | null {
+    try {
+      return JSON.parse(value);
+    } catch (e) {
+      return null;
+    }
   }
 }

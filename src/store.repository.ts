@@ -23,7 +23,6 @@ export class StoreRepository {
 
   retrieve(id: string): any[] {
     const data = this.loadDataFromFile();
-    console.log(data);
 
     if (id.endsWith('*')) {
       return data
