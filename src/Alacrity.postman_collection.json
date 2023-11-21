@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "d55c911a-b2bb-46d0-9215-1307ea3da585",
+		"name": "Alacrity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "1612388"
+	},
+	"item": [
+		{
+			"name": "Retreive-Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/secure-data?id=some-id&decryptionKey=12345678",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"secure-data"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "some-id"
+						},
+						{
+							"key": "decryptionKey",
+							"value": "12345678"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retreive-Data-Wildcard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/secure-data?id=some-id*&decryptionKey=some_key",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"secure-data"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "some-id*"
+						},
+						{
+							"key": "decryptionKey",
+							"value": "some_key"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retreive-Data-Wrong-Key",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/secure-data?id=some-id&decryptionKey=12345677",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"secure-data"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "some-id"
+						},
+						{
+							"key": "decryptionKey",
+							"value": "12345677"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store-Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"some-id\",\r\n    \"encriptionKey\": \"12345678\",\r\n    \"value\": {\r\n        \"some_value\": \"some_value\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:3000"
+			},
+			"response": []
+		}
+	]
+}
