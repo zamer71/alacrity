@@ -1,6 +1,7 @@
 // In real application some kind of validation should be used to ensure that the data is valid.
-export class StoredData {
+export class EncryptInput {
   id: string;
 
-  encryptedValue: string;
+  value: string;
+  encriptionKey: string;
 }

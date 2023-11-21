@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { StoreRepository } from './store.repository';
+import { EncryptInput } from './stored-data.entity';
 
 @Injectable()
 export class SecureDataService {
@@ -9,8 +10,8 @@ export class SecureDataService {
 
   constructor(private readonly storeRepository: StoreRepository) {}
 
-  async storeData({ id, encryption_key, value }): Promise<void> {
-    const encryptedValue = this.encrypt(value, encryption_key);
+  async storeData({ id, encriptionKey, value }: EncryptInput): Promise<void> {
+    const encryptedValue = this.encrypt(value, encriptionKey);
     this.storeRepository.store(id, encryptedValue);
   }
 

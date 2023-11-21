@@ -8,19 +8,6 @@ import * as path from 'path';
 export class StoreRepository {
   private readonly filePath: string = path.join(__dirname, './data.json');
 
-  private loadDataFromFile(): any[] {
-    try {
-      const data = fs.readFileSync(this.filePath, 'utf-8');
-      return JSON.parse(data);
-    } catch (error) {
-      return [];
-    }
-  }
-
-  private saveDataToFile(data: any[]): void {
-    fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2), 'utf-8');
-  }
-
   store(id: string, value: any): void {
     const data = this.loadDataFromFile();
     const existingIndex = data.findIndex((item) => item.id === id);
@@ -47,5 +34,18 @@ export class StoreRepository {
         .filter((item) => item.id === id)
         .map((item) => ({ id: item.id, value: item.value }));
     }
+  }
+
+  private loadDataFromFile(): any[] {
+    try {
+      const data = fs.readFileSync(this.filePath, 'utf-8');
+      return JSON.parse(data);
+    } catch (error) {
+      return [];
+    }
+  }
+
+  private saveDataToFile(data: any[]): void {
+    fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2), 'utf-8');
   }
 }

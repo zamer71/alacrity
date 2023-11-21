@@ -1,12 +1,13 @@
 import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { SecureDataService } from './secure-data.service';
+import { EncryptInput } from './stored-data.entity';
 
 @Controller('secure-data')
 export class SecureDataController {
   constructor(private readonly secureDataService: SecureDataService) {}
 
   @Post()
-  async storeData(@Body() body: any): Promise<{ message: string }> {
+  async storeData(@Body() body: EncryptInput): Promise<{ message: string }> {
     await this.secureDataService.storeData(body);
     return { message: 'Data stored successfully.' };
   }
