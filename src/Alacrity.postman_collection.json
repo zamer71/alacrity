@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/secure-data?id=some-id&decryptionKey=12345678",
+					"raw": "localhost:3000/secure-data?id=some-id&decryptionKey=12345678901234567890123456789012",
 					"host": [
 						"localhost"
 					],
@@ -27,7 +27,7 @@
 						},
 						{
 							"key": "decryptionKey",
-							"value": "12345678"
+							"value": "12345678901234567890123456789012"
 						}
 					]
 				}
@@ -40,7 +40,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/secure-data?id=some-id*&decryptionKey=some_key",
+					"raw": "localhost:3000/secure-data?id=some-id*&decryptionKey=12345678901234567890123456789012",
 					"host": [
 						"localhost"
 					],
@@ -55,7 +55,7 @@
 						},
 						{
 							"key": "decryptionKey",
-							"value": "some_key"
+							"value": "12345678901234567890123456789012"
 						}
 					]
 				}
@@ -97,14 +97,14 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"some-id\",\r\n    \"encriptionKey\": \"12345678\",\r\n    \"value\": {\r\n        \"some_value\": \"some_value\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"id\": \"some-id\",\r\n    \"encriptionKey\": \"12345678901234567890123456789012\",\r\n    \"value\": {\r\n        \"some_value\": \"some_value\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "localhost:3000"
+				"url": "localhost:3000/secure-data"
 			},
 			"response": []
 		}

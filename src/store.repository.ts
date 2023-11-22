@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import * as fs from 'fs';
 import * as path from 'path';
+import { readFile, writeFile } from 'fs/promises';
 
 // In real application some kind of database should be used
 
@@ -8,8 +8,8 @@ import * as path from 'path';
 export class StoreRepository {
   private readonly filePath: string = path.join(__dirname, './data.json');
 
-  store(id: string, value: any): void {
-    const data = this.loadDataFromFile();
+  store = async (id: string, value: any): Promise<boolean> => {
+    const data = await this.loadDataFromFile();
     const existingIndex = data.findIndex((item) => item.id === id);
 
     if (existingIndex !== -1) {
@@ -18,11 +18,11 @@ export class StoreRepository {
       data.push({ id, value });
     }
 
-    this.saveDataToFile(data);
-  }
+    return await this.saveDataToFile(data);
+  };
 
-  retrieve(id: string): any[] {
-    const data = this.loadDataFromFile();
+  retrieve = async (id: string): Promise<any[]> => {
+    const data = await this.loadDataFromFile();
 
     if (id.endsWith('*')) {
       return data
@@ -33,18 +33,23 @@ export class StoreRepository {
         .filter((item) => item.id === id)
         .map((item) => ({ id: item.id, value: item.value }));
     }
-  }
+  };
 
-  private loadDataFromFile(): any[] {
+  private loadDataFromFile = async (): Promise<any[]> => {
     try {
-      const data = fs.readFileSync(this.filePath, 'utf-8');
+      const data = await readFile(this.filePath, { encoding: 'utf-8' });
       return JSON.parse(data);
     } catch (error) {
       return [];
     }
-  }
+  };
 
-  private saveDataToFile(data: any[]): void {
-    fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2), 'utf-8');
-  }
+  private saveDataToFile = async (data: any[]): Promise<boolean> => {
+    try {
+      await writeFile(this.filePath, JSON.stringify(data, null, 2), 'utf-8');
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
 }
